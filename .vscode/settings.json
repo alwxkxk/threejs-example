@@ -1,0 +1,10 @@
+{
+  "eslint.workingDirectories":  [{ "mode": "auto" }],
+  "cSpell.words": [
+    "raycaster",
+    "outlinepass",
+    "arraybuffer",
+    "alwxkxk",
+    "threejs"
+  ]
+}
