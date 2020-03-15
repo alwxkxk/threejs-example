@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
     index:"./src/index.js",
-    building1:"./src/building/1.js",
+    "1-model":"./src/fundamentals-demo/1-model/index.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -19,9 +19,9 @@ module.exports = {
       chunks: ["index"]
     }),
     new HtmlWebpackPlugin({
-      filename: "building-1.html",
-      template: "./src/building/1.html",
-      chunks: ["building1"]
+      filename: "1-model.html",
+      template: "./src/fundamentals-demo/1-model/index.html",
+      chunks: ["1-model"]
     })
   ]
 };

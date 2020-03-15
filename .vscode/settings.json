@@ -1,10 +1,13 @@
 {
-  "eslint.workingDirectories":  [{ "mode": "auto" }],
   "cSpell.words": [
+    "threejs",
     "raycaster",
+    "GLTF",
+    "gltf",
+    "FXAA",
     "outlinepass",
     "arraybuffer",
-    "alwxkxk",
-    "threejs"
+    "antv",
+    "Youtube",
   ]
 }
