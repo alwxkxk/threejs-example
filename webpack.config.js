@@ -5,6 +5,7 @@ module.exports = {
   entry: {
     index:"./src/index.js",
     "1-model":"./src/fundamentals-demo/1-model/index.js",
+    "points-flow":"./src/other-example/points-flow/index.js"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -22,6 +23,11 @@ module.exports = {
       filename: "1-model.html",
       template: "./src/fundamentals-demo/1-model/index.html",
       chunks: ["1-model"]
+    }),
+    new HtmlWebpackPlugin({
+      filename: "points-flow.html",
+      template: "./src/other-example/points-flow/index.html",
+      chunks: ["points-flow"]
     })
   ]
 };

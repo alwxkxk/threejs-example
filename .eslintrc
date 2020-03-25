@@ -4,12 +4,14 @@
       "quotes": ["error", "double"]
   },
   "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2017
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  }
+    "ecmaVersion": 7,
+    "sourceType": "module"
+},
+"env": {
+  "browser": true,
+  "node": true,
+  "jasmine": true,
+  "es6": true 
+},
+  "extends": "eslint:recommended"
 }
