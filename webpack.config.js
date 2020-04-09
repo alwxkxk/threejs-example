@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const dirList = [
+  "./src/project-demo",
   "./src/fundamentals-demo",
   "./src/other-example"
 ];
