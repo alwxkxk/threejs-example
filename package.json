@@ -19,6 +19,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^18.5.0",
     "three": "^0.112.1"
   }
 }
