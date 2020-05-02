@@ -22,14 +22,33 @@
 				border-radius: 10px;
 				cursor: pointer;
 			}
+			body{
+				background-image: linear-gradient(rgba(0,0,50, 0.4),rgba(0,0,50,0.9)) , url(/static/img/bg.jpg);
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			#name-box{
+				position:absolute;
+				color: white;
+				background-color: rgba(15, 15, 200, 0.774);
+				font-size: 32px;
+				font-weight: 600;
+				pointer-events: none;
+				padding: 15px;
+				border-radius: 10px;
+			}
 
 		</style>
 	</head>
 	<body>
+		<div id="line" style="width: 600px;height:400px;position:absolute;"></div>
+
 		<div class="button-container">
 			<button id="dismantling"> 拆解</button>
 			<button id="recovery"> 还原</button>
 		</div>
+
+		<div id="name-box">test</div>
 
 	</body>
 </html>
