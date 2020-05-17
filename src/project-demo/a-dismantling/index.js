@@ -112,9 +112,6 @@ document.getElementById("recovery").onclick=()=>{
 
 
 // 选中高亮并显示名称
-//https://github.com/mrdoob/three.js/blob/master/examples/webgl_instancing_raycast.html
-// https://threejs.org/examples/?q=outline#webgl_postprocessing_outline
-
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2( 1, 1 );
 const mousePosition = {
@@ -144,9 +141,9 @@ const animate = function () {
     outlinePass.selectedObjects = [intersection[0].object];
 
     // 名称提示
-    nameBox.innerHTML = intersection[0].object.name.replace("Object_","元件");
+    nameBox.innerHTML = intersection[0].object.name.replace("Object_","零件");
     nameBox.style.display = "block";
-    nameBox.style.top = mousePosition.y;
+    nameBox.style.top = mousePosition.y; // 跟随鼠标的位置
     nameBox.style.left = mousePosition.x + 30;
   }else{
     outlinePass.selectedObjects = [];

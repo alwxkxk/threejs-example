@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@tweenjs/tween.js": "^18.5.0",
+    "d3-interpolate": "^1.4.0",
     "echarts": "^4.7.0",
     "three": "^0.112.1"
   }
