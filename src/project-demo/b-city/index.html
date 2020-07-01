@@ -5,11 +5,28 @@
 		<style>
 			body { margin: 0; }
 			canvas { display: block; }
+			.icon{
+				width:36px;
+				height:36px;
+				position: absolute;
+				cursor: pointer;
+			}
+
+			.twinkle {
+				animation-name: twinkle-key;
+				animation-duration: 1s;
+				animation-iteration-count: infinite;
+			}
+
+			@keyframes twinkle-key{
+				50%  {
+					opacity: 0.5;
+				}
+			}
 
 		</style>
 	</head>
 	<body>
-
-
+		<img id="warnIcon" alt="warn" class="icon twinkle" src="/static/img/warn.svg" >
 	</body>
 </html>

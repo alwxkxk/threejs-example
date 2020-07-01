@@ -3,7 +3,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {interpolateHsl} from "d3-interpolate";
 import TWEEN from "@tweenjs/tween.js";
-import Stats from "three/examples/jsm/libs/stats.module.js";
 // bloom
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -18,8 +17,6 @@ const clock = new THREE.Clock();
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
-const stats = new Stats();
-document.body.appendChild( stats.dom );
 
 new OrbitControls( camera, renderer.domElement );
 const light = new THREE.HemisphereLight( 0xffffff, 0xcccccc, 1 );
@@ -42,7 +39,13 @@ const animate = function () {
   animateList.forEach(mixer=>{
     mixer.update( delta );
   });
-  stats.update();
+  // 更新图标坐标
+  const elevator = scene.getObjectByName("road003");
+  const position = getPosition(elevator);
+  const iconElement = document.getElementById("warnIcon");
+  iconElement.style.top = position.y;
+  iconElement.style.left = position.x;
+  
   bloomComposer.render();
   requestAnimationFrame( animate );
 };
@@ -179,3 +182,19 @@ function change2LightTrail(object3d) {
     .start();
   }
 
+
+const box3 = new THREE.Box3();
+function getPosition(object3d) {
+    const result= {};
+    const widthHalf = window.innerWidth / 2;
+    const heightHalf = window. innerHeight / 2;
+    // 获取在3D空间里的坐标
+    const vector = new THREE.Vector3();
+    box3.setFromObject(object3d);
+    box3.getCenter(vector);
+    vector.project(camera);
+    // 转换成平面坐标
+    result.x = vector.x * widthHalf + widthHalf;
+    result.y = -(vector.y * heightHalf) + heightHalf;
+    return result;
+}
