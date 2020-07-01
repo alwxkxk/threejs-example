@@ -3,7 +3,10 @@
 		<meta charset="UTF-8">
 		<title>threejs-example project demo: points-model</title>
 		<style>
-			body { margin: 0; }
+			body { 
+				margin: 0;
+				background: black;
+			}
 			canvas { display: block; }
 			.button-container {
 				position: absolute;
@@ -41,12 +44,13 @@
 		</style>
 	</head>
 	<body>
+		<div id="loadingText" style="color: white;">加载中...</div>
 		<div class="button-container">
 			<button id="dismantling"> 拆解</button>
 			<button id="recovery"> 还原</button>
 		</div>
 
-		<div id="name-box">test</div>
+		<div id="name-box"></div>
 
 	</body>
 </html>

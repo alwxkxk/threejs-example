@@ -156,9 +156,13 @@ const animate = function () {
 
 
 
+function handleProgress(progressEvent) {
+  console.log("handleProgress",progressEvent.loaded,progressEvent.total);
+  document.getElementById("loadingText").innerText = `加载模型中:${(progressEvent.loaded/progressEvent.total * 100).toFixed(0) }%`;
+}
 
 loader.load( "./static/3d/a-dismantling.glb", function ( gltf ) {
-   
+  document.getElementById("loadingText").style.display = "none";
   scene.add( gltf.scene.children[0] );
 
   console.log("scene",scene);
@@ -169,7 +173,7 @@ loader.load( "./static/3d/a-dismantling.glb", function ( gltf ) {
 
   animate();
 
-} );
+},handleProgress );
 
 
 
