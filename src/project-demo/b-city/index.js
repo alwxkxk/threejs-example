@@ -40,8 +40,8 @@ const animate = function () {
     mixer.update( delta );
   });
   // 更新图标坐标
-  const elevator = scene.getObjectByName("road003");
-  const position = getPosition(elevator);
+  const road = scene.getObjectByName("road003");
+  const position = getPosition(road);
   const iconElement = document.getElementById("warnIcon");
   iconElement.style.top = position.y;
   iconElement.style.left = position.x;
