@@ -28,7 +28,7 @@ function onMouseMove( event ) {
   mouseDataContainerElement.style.left =event.clientX;
   mouseDataContainerElement.style.top =event.clientY;
   mouseDataElement.innerText = `屏幕坐标:(${event.clientX},${event.clientY})`;
-  positionDataElement.innerText = `转换坐标:(${mouse.x.toFixed(2)},${mouse.y.toFixed(2)})`;
+  positionDataElement.innerText = `归一坐标:(${mouse.x.toFixed(2)},${mouse.y.toFixed(2)})`;
   console.log(mouse.x,mouse.y);
 
 }
