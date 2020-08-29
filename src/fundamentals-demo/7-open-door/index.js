@@ -65,13 +65,13 @@ const mouse = new THREE.Vector2();
 function onMouseClick(event) {
   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  // raycaster 检测指向哪个物体
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(raycasterObjects);
   if(intersects.length>0){
     // 门被检测到
     triggerDoor();
   }
-
 }
 
 window.addEventListener( "click", onMouseClick, false );
