@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>threejs-example other example : limit test(geometry)</title>
+		<style>
+			body { margin: 0; }
+			canvas { display: block; }
+      .plan{
+        position: absolute;
+        background: #ccc;
+        z-index: 99;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 5px;
+      }
+		</style>
+	</head>
+	<body>
+
+		<div style="position: absolute;right:5px;top:5px; background-color:black;">
+			<a href="https://github.com/alwxkxk/threejs-example" target="_blank" >
+				<img style="width:32px;height:32px;cursor: pointer;" src="/static/img/github.svg" >
+			</a>
+    </div>
+
+    <div class="plan">
+      <div>FPS：<span id="fps">- -</span></div>
+      <div>立方体数量：<span id="cube-number">- -</span></div>
+      <div>当FPS低于30时不再新增立方体</div>
+      <div>当滚动进入里面，所要渲染的立方体减少时，FPS会重新提升。</div>
+    </div>
+    
+	</body>
+</html>
