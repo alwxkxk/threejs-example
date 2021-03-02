@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>threejs-example project demo: a-dismantling</title>
+		<style>
+			body { 
+				margin: 0;
+				background: black;
+			}
+			canvas { display: block; }
+			.button-container {
+				position: absolute;
+				margin: auto;
+				width: 100vw;
+				display: flex;
+				justify-content: center;
+			}
+			.button-container>button{
+				margin: 10px;
+				font-size: 20px;
+				background-color: #409eff;
+				border: none;
+				color: white;
+				padding: 10px;
+				border-radius: 10px;
+				cursor: pointer;
+			}
+			body{
+				background-image: linear-gradient(rgba(0,0,50, 0.4),rgba(0,0,50,0.9)) , url(/static/img/bg.jpg);
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			#name-box{
+				position:absolute;
+				color: white;
+				background-color: rgba(15, 15, 200, 0.774);
+				font-size: 32px;
+				font-weight: 600;
+				pointer-events: none;
+				padding: 15px;
+				border-radius: 10px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div style="position: absolute;right:5px;top:5px; background-color:black;">
+			<a href="https://github.com/alwxkxk/threejs-example" target="_blank" >
+				<img style="width:32px;height:32px;cursor: pointer;" src="/static/img/github.svg" >
+			</a>
+		</div>
+		<div id="loadingText" style="color: white;">加载中...</div>
+		<div class="button-container">
+			<button id="dismantling"> 拆解</button>
+			<button id="recovery"> 还原</button>
+		</div>
+
+		<div id="name-box"></div>
+
+	<script type="text/javascript" src="a-dismantling.js"></script></body>
+</html>
