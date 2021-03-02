@@ -12,3 +12,7 @@ yarn run dev
 #build
 yarn run build
 ```
+
+
+## 其它
+- 3D背景效果来源于：[3D Infinity Effect CSS/HTML Tutorial -  YouTube](https://www.youtube.com/watch?v=s05vBlszF-I)
