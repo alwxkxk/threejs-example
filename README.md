@@ -2,6 +2,8 @@
 
 <!-- threejs-example is the code for a three.js tutorial.Blender project in [threejs-example-blender-project](https://github.com/alwxkxk/threejs-example-blender-project) -->
 
+- 在线访问的备用网址(由github action自动更新部署的Pages)：[https://alwxkxk.github.io/threejs-example/](https://alwxkxk.github.io/threejs-example/)
+
 这是3D可视化教程源码，教程内容在[作者博客中](https://www.scaugreen.cn/posts/30679)。Blender工程项目在[threejs-example-blender-project](https://github.com/alwxkxk/threejs-example-blender-project)。
 教程还在制作当中。
 
