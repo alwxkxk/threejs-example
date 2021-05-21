@@ -55,7 +55,7 @@ img.onload = function() {
     scene.add( plane );
 };
 
-img.src = "../static/img/arrow-sprit.png";
+img.src = "./static/img/arrow-sprit.png";
 
 
 new OrbitControls( camera, renderer.domElement );
