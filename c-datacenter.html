@@ -14,16 +14,27 @@
 			}
 
 			.container-3d{
-				width: 59vw;
+				width: 100vw;
 				height: 98vh;
 				margin: 10px;
 			}
 
+			.right-list{
+				position: absolute;
+				right:20px;
+			}
+
+			.left-list {
+				position: absolute;
+				left:20px;
+			}
+
 			.board-list{
+				margin-top:50px;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-evenly;
-    		height: 100vh;
+    			/* height: 100vh; */
 			}
 
 			.board{
@@ -35,6 +46,7 @@
 				background-image: url('./static/img//board.png');
 				background-repeat: no-repeat;
 				background-size: cover;
+				margin: 10px;
 			}
 
 			.board .title{
@@ -66,7 +78,7 @@
 
 		<div class="container">
 
-			<div class="board-list">
+			<div class="board-list left-list">
 				<div class="board">
 					<div class="title">出入统计</div>
 					<div id="line" class="content"></div>
@@ -89,7 +101,7 @@
 			</div>
 
 
-			<div class="board-list">
+			<div class="board-list right-list">
 				<div class="board">
 					<div class="title">数量统计</div>
 					<div id="parallel" class="content"></div>
