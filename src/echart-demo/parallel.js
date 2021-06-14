@@ -127,7 +127,7 @@ var lineStyle = {
 };
 
 const option = {
-  backgroundColor: "#333",
+  backgroundColor: "rgba(0,0,0,0.4)",
   legend: {
       bottom: 30,
       data: ["北京", "上海", "广州"],
@@ -139,7 +139,7 @@ const option = {
   },
   tooltip: {
       padding: 10,
-      backgroundColor: "#222",
+      backgroundColor: "rgba(0,0,0,0.4)",
       borderColor: "#777",
       borderWidth: 1,
       formatter: function (obj) {

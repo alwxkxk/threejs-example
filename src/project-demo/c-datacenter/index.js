@@ -68,6 +68,10 @@ loader.load( "./static/3d/c-datacenter.glb", function ( gltf ) {
   scene.traverse(item=>{
     if(!item.name.includes("floor")){
       itemList.push(item);
+    }else{
+      console.log('floor',item)
+      item.material.wireframe = true
+      item.material.color.set(0x00ffff)
     }
   });
 
