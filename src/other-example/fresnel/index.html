@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>threejs-example project demo: b-city</title>
+		<style>
+			body { 
+				margin: 0;
+				background: black;
+			}
+			canvas { display: block; }
+			.icon{
+				width:36px;
+				height:36px;
+				position: absolute;
+				cursor: pointer;
+			}
+
+			.twinkle {
+				animation-name: twinkle-key;
+				animation-duration: 1s;
+				animation-iteration-count: infinite;
+			}
+
+			@keyframes twinkle-key{
+				50%  {
+					opacity: 0.5;
+				}
+			}
+
+		</style>
+	</head>
+	<body>
+		<div style="position: absolute;right:5px;top:5px; background-color:black;">
+			<a href="https://github.com/alwxkxk/threejs-example" target="_blank" >
+				<img style="width:32px;height:32px;cursor: pointer;" src="./static/img/github.svg" >
+			</a>
+		</div>
+		<div id="loadingText" style="color: white;">加载中...</div>
+	</body>
+</html>
