@@ -2,6 +2,9 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
+// 使用其支持 github pages 
+const url = window.location.host.includes("github.io") ?"https://media.githubusercontent.com/media/alwxkxk/threejs-example/master/static/lfs/car.glb":"./static/lfs/car.glb";
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -29,7 +32,7 @@ function handleProgress(progressEvent) {
 }
 
 // 由于fresnel需要normal来进行计算，所以模型导出时必须带有normal。
-loader.load( "./static/lfs/car.glb", function ( gltf ) {
+loader.load( url, function ( gltf ) {
   document.getElementById("loadingText").style.display = "none";
   console.log("load gltf file:",gltf);
   
