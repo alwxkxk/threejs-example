@@ -25,4 +25,4 @@ yarn run build
 - 3D背景效果来源于：[3D Infinity Effect CSS/HTML Tutorial -  YouTube](https://www.youtube.com/watch?v=s05vBlszF-I)
 
 ### lfs
-`static/lfs/`用于使用git lfs 存放大文件。`.gitattributes`暂时已经配置了该目录下所有`*.glb`都使用lfs。
+`static/lfs/`用于使用git lfs 存放大文件。`.gitattributes`暂时已经配置了该目录下所有`*.glb`都使用lfs。这些文件部署到github pages时需要手动修改路径才能正常使用。
