@@ -52,9 +52,14 @@ function resize() {
 window.addEventListener( "resize", resize, false );
 
 var geometry = new THREE.BoxGeometry();
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+// var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
 var cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
+
+const light = new THREE.DirectionalLight(0xffffff)
+light.position.set(0,0.1,0)
+scene.add(light)
 
 camera.position.z = 5;
 

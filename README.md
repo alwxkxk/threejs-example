@@ -13,7 +13,16 @@
 
 ## 运行
 ```bash
+# 需要先安装git LFS
+
+# 拉取代码
+git clone https://github.com/alwxkxk/threejs-example.git
+
+cd threejs-example
+
+# 安装依赖
 yarn 
+
 #dev
 yarn run dev 
 #build
@@ -24,7 +33,9 @@ yarn run build
 ## 其它
 - 3D背景效果来源于：[3D Infinity Effect CSS/HTML Tutorial -  YouTube](https://www.youtube.com/watch?v=s05vBlszF-I)
 
-### lfs
+## 目录结构说明
+webpack处理时会将每个目录下的index.html使用该目录下的的index.js，即使在index.html里没有显式地使用。
+### LFS
 `static/lfs/`用于使用git lfs 存放大文件。`.gitattributes`暂时已经配置了该目录下所有`*.glb`都使用lfs。这些文件部署到github pages时需要手动修改路径才能正常使用：
 比如：
 ```js
