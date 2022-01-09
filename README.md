@@ -41,3 +41,6 @@ webpack处理时会将每个目录下的index.html使用该目录下的的index.
 ```js
 const url = window.location.host.includes("github.io") ?"https://media.githubusercontent.com/media/alwxkxk/threejs-example/master/static/lfs/car.glb":"./static/lfs/car.glb"
 ```
+
+## TODO
+- 首页优化
