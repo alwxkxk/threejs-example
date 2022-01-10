@@ -27,21 +27,19 @@ varying vec3 vPosition;
 void main() 
 {
   gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-  vPosition = gl_Position.xyz;
+  vPosition = position;
 }
 `;
 
 const fragmentShader=`
 varying vec3 vPosition;
 uniform vec3 fillColor;
-uniform vec3 gapColor;
 uniform float splitValue;
 void main() 
 {
-  // 如果Y轴坐标大于分割值，就高透明的空隙色，小于这个值就填充色
-  // 多加0.3倍作为冗余
-  if(vPosition.y> splitValue * 1.3){
-    gl_FragColor = vec4( gapColor, 0.2 );
+  // 如果Y轴坐标小于分割值，就填充色，小于这个值就取消渲染。
+  if(vPosition.y> splitValue ){
+    discard;
   }else{
     gl_FragColor = vec4( fillColor, 0.9 );
   }
@@ -54,21 +52,31 @@ var customMaterial = new THREE.ShaderMaterial({
   { 
     splitValue:{ type: "f", value: 0.0},//分割值，Y轴坐标
     fillColor: { type: "c", value: new THREE.Color(color) },
-    gapColor: { type: "c", value: new THREE.Color("#ffffff") }
   },
   vertexShader: vertexShader,
-  fragmentShader: fragmentShader,
-  transparent: true
+  fragmentShader: fragmentShader
 });
 
-const geo = new THREE.TorusGeometry();
+// NOTE: 由于Torus是中间空心的，单纯的通过放大scale来造出container会导致中间空得更大，没法包含进去。
+const geo = new THREE.TorusGeometry(1,0.4);
 const mesh = new THREE.Mesh(geo, customMaterial);
+const containerMaterial = new THREE.MeshBasicMaterial( { 
+  color:"#ffffff",
+  transparent:true,  
+  opacity:0.15
+} );
+const containerGeo = new THREE.TorusGeometry(1,0.45);
+const containerMesh = new THREE.Mesh(containerGeo, containerMaterial);
 const box3 = new THREE.Box3();
 const meshBox3 = box3.setFromObject(mesh);
 const meshMaxY = meshBox3.max.y;
 const meshMinY = meshBox3.min.y;
+const group = new THREE.Group();
+group.add(mesh);
+group.add(containerMesh);
+scene.add( group );
 
-scene.add( mesh );
+// 放一个在旁边作对照
 const material = new THREE.MeshBasicMaterial( { color:color} );
 const mesh2 = new THREE.Mesh(geo, material);
 mesh2.position.x = -3;
