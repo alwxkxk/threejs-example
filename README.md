@@ -8,7 +8,10 @@
 
 这是3D可视化教程源码，其教程内容在[作者博客中](https://www.scaugreen.cn/posts/30679)，教程还在制作当中。
 
-本项目涉及建模内容，其Blender工程项目放在[threejs-example-blender-project](https://github.com/alwxkxk/threejs-example-blender-project)。
+本项目涉及建模内容，其Blender工程项目放在百度网盘：
+
+链接：[https://pan.baidu.com/s/1DjqU7bfYWbuKj_GUpo5Xqw?pwd=z965](https://pan.baidu.com/s/1DjqU7bfYWbuKj_GUpo5Xqw?pwd=z965)
+提取码：z965
 
 
 ## 运行
