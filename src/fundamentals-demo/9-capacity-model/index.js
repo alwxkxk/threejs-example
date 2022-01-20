@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { DoubleSide } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // https://github.com/dataarts/dat.gui/blob/master/API.md
 import * as dat from "three/examples/jsm/libs/dat.gui.module";
@@ -54,6 +55,7 @@ var customMaterial = new THREE.ShaderMaterial({
     fillColor: { type: "c", value: new THREE.Color(color) },
   },
   vertexShader: vertexShader,
+  side:DoubleSide,
   fragmentShader: fragmentShader
 });
 
