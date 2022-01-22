@@ -2,49 +2,41 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-// 使用其支持 github pages 
-const url = window.location.host.includes("github.io") ?"https://media.githubusercontent.com/media/alwxkxk/threejs-example/master/static/lfs/car.glb":"./static/lfs/car.glb";
-
-
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-camera.position.set(-3,3,3);
-window.debugScene = scene;
-window.debugCamera = camera;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-new OrbitControls( camera, renderer.domElement );
-const light = new THREE.HemisphereLight( 0xffffff, 0xcccccc, 1 );
-scene.add( light );
+const orbit = new OrbitControls( camera, renderer.domElement );
+camera.position.set(4.5,1,-2);
+orbit.update();
+
 
 const animate = function () {
-  renderer.render(scene, camera);
-  
   requestAnimationFrame( animate );
+  renderer.render( scene, camera );
 };
+
 const loader = new GLTFLoader();
-function handleProgress(progressEvent) {
-  console.log("handleProgress",progressEvent.loaded,progressEvent.total);
-  document.getElementById("loadingText").innerText = `加载模型中:${(progressEvent.loaded/progressEvent.total * 100).toFixed(0) }%`;
-}
 
 // 由于fresnel需要normal来进行计算，所以模型导出时必须带有normal。
-loader.load( url, function ( gltf ) {
+loader.load( "./static/3d/Horse.glb", function ( gltf ) {
   document.getElementById("loadingText").style.display = "none";
   console.log("load gltf file:",gltf);
-  
+  const horse = gltf.scene.children[0];
+  horse.scale.set(0.01,0.01,0.01);
+
   const list = [...gltf.scene.children];
   list.forEach(item=>{
     changeMat(item);
   });
-  scene.add( gltf.scene );
+  scene.add( horse );
 
   animate();
 
-},handleProgress );
+});
 
 
 
@@ -95,14 +87,3 @@ function changeMat(object3d){
     }
   });
 }
-
-
-// var geometry = new THREE.TorusKnotBufferGeometry( 10, 3, 100, 32 );
-// var torusKnot = new THREE.Mesh( geometry, customMaterial );
-// torusKnot.position.y = -30;
-// scene.add( torusKnot );
-
-// var geometry2 = new THREE.BoxGeometry(10,10,10);
-// var cube = new THREE.Mesh( geometry2, customMaterial );
-// cube.position.y = 30;
-// scene.add( cube );
