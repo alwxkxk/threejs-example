@@ -76,26 +76,27 @@ function move(obj,position) {
 
 // 拆解按钮
 document.getElementById("dismantling").onclick=()=>{
-  move(scene.getObjectByName("Object_7"),{x:-5});
-  move(scene.getObjectByName("Object_18"),{x:-5});
+  move(scene.getObjectByName("Object_7"),{x:-2.5,y:1});
+  move(scene.getObjectByName("Object_18"),{x:-5,y:-1});
 
-  move(scene.getObjectByName("Object_10"),{x:5});
-  move(scene.getObjectByName("Object_11"),{x:5});
-  move(scene.getObjectByName("Object_17"),{x:5});
+  move(scene.getObjectByName("Object_10"),{x:2.5});
+  move(scene.getObjectByName("Object_11"),{x:2.5});
+ 
+  move(scene.getObjectByName("Object_17"),{x:2.5});
 
-  move(scene.getObjectByName("Object_27"),{z:5});
-  move(scene.getObjectByName("Object_29"),{z:5});
+  move(scene.getObjectByName("Object_27"),{z:2.5});
+  move(scene.getObjectByName("Object_29"),{z:2.5});
 
+  move(scene.getObjectByName("Object_12"),{x:-5});
   move(scene.getObjectByName("Object_14"),{z:-5});
   move(scene.getObjectByName("Object_16"),{z:-5});
 
-  move(scene.getObjectByName("Object_28"),{y:2});
 };
 
 // 还原按钮
 document.getElementById("recovery").onclick=()=>{
-  move(scene.getObjectByName("Object_7"),{x:0});
-  move(scene.getObjectByName("Object_18"),{x:0});
+  move(scene.getObjectByName("Object_7"),{x:0,y:0});
+  move(scene.getObjectByName("Object_18"),{x:0,y:0});
 
   move(scene.getObjectByName("Object_10"),{x:0});
   move(scene.getObjectByName("Object_11"),{x:0});
@@ -104,10 +105,9 @@ document.getElementById("recovery").onclick=()=>{
   move(scene.getObjectByName("Object_27"),{z:0});
   move(scene.getObjectByName("Object_29"),{z:0});
 
+  move(scene.getObjectByName("Object_12"),{x:0});
   move(scene.getObjectByName("Object_14"),{z:0});
   move(scene.getObjectByName("Object_16"),{z:0});
-
-  move(scene.getObjectByName("Object_28"),{y:0});
 };
 
 
