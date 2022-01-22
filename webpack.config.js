@@ -37,10 +37,18 @@ dirList.forEach(dir=>{
   });
 });
 
+
+
 module.exports = {
   entry: entryObj,
+  mode: "production",
   output: {
     path: path.resolve(__dirname, "dist"),
+  },
+  optimization:{
+    splitChunks:{
+      chunks:"all"
+    }
   },
   plugins:pluginsList
 
