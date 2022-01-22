@@ -1,260 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    body {
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title><link rel="stylesheet" href="./static/bootstrap.min.css"><script src="./static/bootstrap.min.js"></script><style>body {
       width: 100vw;
       height: 100vh;
       margin: 0;
-      overflow: auto;
-      background: linear-gradient(90deg, rgba(0,41,69,1) 6%, rgb(53, 0, 56) 29%, rgba(7,33,71,1) 84%);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background-color: antiquewhite;
       color:#ccc;
     }
-    .row{
+
+    h1{
+      color: black;
+      text-indent: 1rem;
+    }
+
+    .row-container{
       display: flex;
       flex-wrap: wrap;
     }
-    .row-title{
-      background: #0a0d63d4;
-      width: fit-content;
-      margin: 10px auto;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    .background-container {
-      width:100%;
-      height: 100%;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      perspective: 50px;
-      animation: zooming 10s ease-in-out infinite;
-      z-index: -1;
-    }
-    .frame {
-      width: 900px;
-      height: 900px;
-      position: absolute;
-      border-radius: 50px;
-      border: 5px #087be6 solid;
-      box-shadow: 
-      0px 0px 20px #00ccff,
-      inset 0px 0px 20px #00ccff,
-      0px 0px 60px #ff00c8,
-      inset 0px 0px 60px #ff00c8;
-      filter:brightness(1.5) contrast(3);
-      animation: breathing 3s ease-out infinite;
-    }
-    .frame:nth-child(1) {
-      transform: rotate(40deg) translateY(0px) translateZ(0px);
-      opacity: 1.00;
-      animation-delay: 0.1s;
-    }
-    .frame:nth-child(2) {
-      transform: rotate(40deg) translateY(50px) translateZ(-10px);
-      opacity: 0.9;
-      animation-delay: 0.3s;
-    }
-    .frame:nth-child(3) {
-      transform: rotate(40deg) translateY(100px) translateZ(-20px);
-      opacity: 0.85;
-      animation-delay: 0.5s;
-    }
-    .frame:nth-child(4) {
-      transform: rotate(40deg) translateY(150px) translateZ(-30px);
-      opacity: 0.80;
-      animation-delay: 0.7s;
-    }
-    .frame:nth-child(5) {
-      transform: rotate(40deg) translateY(200px) translateZ(-40px);
-      opacity: 0.75;
-      animation-delay: 0.9s;
-    }
-    .frame:nth-child(6) {
-      transform: rotate(40deg) translateY(250px) translateZ(-50px);
-      opacity: 0.70;
-      animation-delay: 1.1s;
-    }
-    .frame:nth-child(7) {
-      transform: rotate(40deg) translateY(300px) translateZ(-60px);
-      opacity: 0.65;
-      animation-delay: 1.3s;
-    }
-    .frame:nth-child(8) {
-      transform: rotate(40deg) translateY(350px) translateZ(-70px);
-      opacity: 0.6;
-      animation-delay: 1.5s;
-    }
-    .frame:nth-child(9) {
-      transform: rotate(40deg) translateY(400px) translateZ(-80px);
-      opacity: 0.5;
-      animation-delay: 1.7s;
-    }
-    .frame:nth-child(10) {
-      transform: rotate(40deg) translateY(450px) translateZ(-90px);
-      opacity: 0.4;
-      animation-delay: 1.9s;
-    }
-    .frame:nth-child(11) {
-      transform: rotate(40deg) translateY(500px) translateZ(-100px);
-      opacity: 0.3;
-      animation-delay: 2.1s;
-    }
-    .frame:nth-child(12) {
-      transform: rotate(40deg) translateY(550px) translateZ(-110px);
-      opacity: 0.2;
-      animation-delay: 2.3s;
-    }
-    .frame:nth-child(13) {
-      transform: rotate(40deg) translateY(600px) translateZ(-120px);
-      opacity: 0.1;
-      animation-delay: 2.5s;
-    }
-    .frame:nth-child(14) {
-      transform: rotate(40deg) translateY(650px) translateZ(-130px);
-      opacity: 0.05;
-      animation-delay: 2.7s;
-    }
-    @keyframes breathing {
-      0% {filter: brightness(1.5) contrast(3);}
-      50% {filter: brightness(1.1) contrast(2);}
-      100% {filter: brightness(1.5) contrast(3);}
-    }
-    @keyframes zooming {
-      0% {perspective: 45px;}
-      50% {perspective: 50px;}
-      100% {perspective: 45px;}
-    }
 
-    .item{
-      margin: 15px;
-      width: fit-content;
-    }
-    .item a{
-      margin-top:10px;
-      font-size: 24px;
-      background: #0a0d63d4;
-      padding: 10px;
+    .box-container{
+      width: 16rem;
+      margin: 10px;
       border-radius: 10px;
-      color: #ccc;
-      text-decoration: none;
+      color: black;
+    }
+    .card-img{
+      width: 100%;
+      height:12rem;
+      cursor: pointer;
+    }
+    .card-body{
+      padding: 10px;
+    }
+    .card-text{
+      text-indent: 1rem;
+    }
+    .flex{
+      display: flex;
+    }
+    .card-title > .badge{
+      font-size: small;
+      position: absolute;
+      right: 10px;
     }
 
-    .item img{
-      width:256px;
-      height:256px;
-    }
-    .container{
-      display: flex;
-    }
-    .container .item{
-      display: flex;
-      flex-direction: column;
+    .split-title{
+      font-size: larger;
+      margin: 10px auto;
+      width: fit-content;
+      font-weight: 600;
+      text-indent: 0;
+      padding: 2px 4px;
+      border-radius: 2px;
       text-align: center;
-    }
-
-  </style>
-</head>
-<body>
-  <div class="background-container">
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-    <div class="frame"></div>
-  </div>
-  
-
-  <h2 class="row-title">项目demo（持续更新中...）</h2>
-  <div class="container">
-    <div class="item">
-      <img src="./static/img/a-dismantling.png" >
-     <a href="./a-dismantling.html">a-模型拆解效果</a>
-  
-    </div>
-    <div class="item">
-      <img src="./static/img/b-city.png" >
-      <a href="./b-city.html">b-智慧城市</a>
-    </div>
-
-    <div class="item">
-      <img src="./static/img/c-datacenter.png" >
-      <a href="./c-datacenter.html">c-数据中心</a>
-    </div>
-
-    <div class="item">
-      <img src="./static/img/d-wireframe-transfer-effect.png" >
-      <a href="./d-wireframe-transfer-effect.html">d-线框转换效果</a>
-    </div>
-
-  </div>
-
-  <h2 class="row-title">基础知识demo（持续更新中...）</h2>
-  <div class="row">
-    <div class="item">
-      <a href="./1-model.html">1-模型制作</a>
-    </div>
-    <div class="item">
-      <a href="./3-light-trail.html">3-光线痕迹</a>
-    </div>
-    <div class="item">
-      <a href="./4-animation.html">4-动画</a>
-    </div>
-    <div class="item">
-      <a href="./5-animation-picture.html">5-显示动态图</a>
-    </div>
-    <div class="item">
-      <a href="./6-calculate-position.html">6-屏幕坐标转换</a>
-    </div>
-    <div class="item">
-      <a href="./7-open-door.html">7-开关门(修改不动点)</a>
-    </div>
-    <div class="item">
-      <a href="./8-focus.html">8-聚焦靠近</a>
-    </div>
-    <div class="item">
-      <a href="./9-capacity-model.html">9-容量模式</a>
-    </div>
-  </div>
-
-  <h2  class="row-title">其它例子（持续更新中...）</h2>
-  <div class="row">
-    <div class="item">
-      <a href="./points-flow.html">点流动</a>
-    </div>
-    <div class="item">
-      <a href="./limit-test-geometry.html">极限测试-渲染数量</a>
-    </div>
-
-    <div class="item">
-      <a href="./change-face-material.html">动态改变面的材质</a>
-    </div>
-
-    <div class="item">
-      <a href="./lattice-effect.html">点阵效果</a>
-    </div>
-
-    <div class="item">
-      <a href="./fresnel.html">fresnel效果</a>
-    </div>
-  </div>
-  
-
-<script type="text/javascript" src="index.js"></script></body>
-<script src="./static/js/add-github-icon.js"></script>
-
-</html>
+    }</style><script defer="defer" src="index.js"></script></head><body><h1 class="split-title">完整例子</h1><div class="row-container"><div class="card box-container"><a href="./a-dismantling.html" target="_blank"><img src="./static/img/a-dismantling.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">模型拆解</h5><p class="card-text">以电脑为例，元器件拆解的动画效果，常见于介绍具体产品。</p></div></div><div class="card box-container"><a href="./b-city.html" target="_blank"><img src="./static/img/b-city.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">智慧城市</h5><p class="card-text">智慧城市常见于各种大数据的展示界面。</p></div></div><div class="card box-container"><a href="http://3diot.scaugreen.cn" target="_blank"><img src="./static/img/datacenter.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">数据中心设备房<span class="badge bg-primary rounded-pill">高级</span></h5><p class="card-text">开机柜门、容量模式、热力场等多种效果。</p></div></div></div><h1 class="split-title">基础例子</h1><div class="row-container"><div class="card box-container"><a href="./1-model.html" target="_blank"><img src="./static/img/1-model.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">1.模型制作</h5><p class="card-text">基础模型的制作、贴图、加载显示。</p></div></div><div class="card box-container"><a href="./1-model.html" target="_blank"><img src="./static/img/4-animation.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">2.模型数据</h5><p class="card-text">讲解模型数据，没有例子。</p></div></div><div class="card box-container"><a href="./3-light-trail.html" target="_blank"><img src="./static/img/3-light-trail.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">3.光线痕迹</h5><p class="card-text">讲解模型数据，没有例子。</p></div></div><div class="card box-container"><a href="./4-animation.html" target="_blank"><img src="./static/img/4-animation.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">4.动画</h5><p class="card-text">讲解如何加载模型中的动画数据。</p></div></div><div class="card box-container"><a href="./5-animation-picture.html" target="_blank"><img src="./static/img/5-animation-picture.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">5.显示动态图</h5><p class="card-text">讲解如何显示动态图。</p></div></div><div class="card box-container"><a href="./6-calculate-position.html" target="_blank"><img src="./static/img/6-calculate-position.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">6.屏幕坐标转换</h5><p class="card-text">讲解threejs中的屏幕坐标与3D坐标的转换。</p></div></div><div class="card box-container"><a href="./7-open-door.html" target="_blank"><img src="./static/img/7-open-door.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">7.开关门</h5><p class="card-text">讲解修改模型的不动点，实现开关门效果。</p></div></div><div class="card box-container"><a href="./8-focus.html" target="_blank"><img src="./static/img/8-focus.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">8.聚焦靠近</h5><p class="card-text">讲解让摄像头聚集靠近一个物体。</p></div></div><div class="card box-container"><a href="./9-capacity-model.html" target="_blank"><img src="./static/img/9-capacity-model.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">9.容量模式</h5><p class="card-text">讲解实现根据容量百分比填充颜色。</p></div></div></div><h1 class="split-title">其它例子</h1><div class="row-container"><div class="card box-container"><a href="./wireframe-transfer-effect.html" target="_blank"><img src="./static/img/wireframe-transfer-effect.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">线框转换<span class="badge bg-warning rounded-pill">有待优化</span></h5><p class="card-text">从实体切到线框的过渡效果。</p></div></div><div class="card box-container"><a href="./points-flow.html" target="_blank"><img src="./static/img/points-flow.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">点流动</h5><p class="card-text">顶点流动效果</p></div></div><div class="card box-container"><a href="./limit-test-geometry.html" target="_blank"><img src="./static/img/limit-test-geometry.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">测试渲染数量</h5><p class="card-text">在30FPS前，不断增加顶点,测试渲染数量能达到多少。</p></div></div><div class="card box-container"><a href="./change-face-material.html" target="_blank"><img src="./static/img/change-face-material.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">动态改变面的材质</h5><p class="card-text">点击物体的表面，动态改变面的材质。</p></div></div><div class="card box-container"><a href="./lattice-effect.html" target="_blank"><img src="./static/img/lattice-effect.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">点阵效果</h5><p class="card-text">点阵效果</p></div></div><div class="card box-container"><a href="./fresnel.html" target="_blank"><img src="./static/img/fresnel.webp" class="card-img"></a><div class="card-body"><h5 class="card-title">fresnel效果</h5><p class="card-text">fresnel效果</p></div></div></div></body><script src="./static/js/add-github-icon.js"></script></html>
