@@ -11,9 +11,43 @@
 			}
 			canvas { display: block; }
 
+			.info-box{
+				position: absolute;
+				bottom: 10px;
+				min-height: 50vh;
+				max-height: 50vh;
+				width: 240px;
+				left: 10px;
+				background-color: rgba(17, 34, 78, 0.74);
+				overflow-y: scroll;
+    			overflow-x: hidden;
+			}
+			.info-box-item{
+				color:rgb(236, 236, 236);
+				padding: 10px;
+				font-size: small;
+			}
+
+			::-webkit-scrollbar {
+				width: 4px; 
+				height: 4px;
+			}
+			::-webkit-scrollbar-thumb {
+				background: rgba(0, 0, 0, 0.2);
+				border: 1px solid transparent;
+			}
+			::-webkit-scrollbar-track {
+				background: transparent;
+			}
+			::-webkit-scrollbar-corner {
+				background: transparent;
+			}
+
 		</style>
 	</head>
 	<body>
+		<div id="info-box" class="info-box">
+		</div>
 	</body>
 	<script src="./static/js/add-github-icon.js"></script>
 </html>

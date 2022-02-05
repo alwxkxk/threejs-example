@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import globalData from "./global-data";
 import TWEEN from "@tweenjs/tween.js";
+// TODO: 曲线进出时的水波效果
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -22,8 +23,7 @@ const globeRadius = 50;
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 const imgEle = new Image();
-let globeWidth = 0;
-let globeHeight = 0;
+
 imgEle.onload = function () {
   // draw background image
   if (ctx === null) {
@@ -32,9 +32,6 @@ imgEle.onload = function () {
   ctx.canvas.height = imgEle.height;
   ctx.canvas.width = imgEle.width;
   ctx.drawImage(imgEle, 0, 0);
-  globeWidth = ctx.canvas.width / 2;
-  globeHeight = ctx.canvas.height / 2;
-
   const texture = new THREE.CanvasTexture(ctx.canvas);
 
   const geometry = new THREE.SphereGeometry(globeRadius, 32, 32);
@@ -51,12 +48,16 @@ imgEle.onload = function () {
 imgEle.src = "/static/img/global.webp";
 
 let i = 0;
+const curveList = [];
 setInterval(()=>{
   i += 1;
   if(i>= globalData.length){
     i = 0;
   }
-  createCurve(globalData[i]);
+  if(!curveList[i]){
+    curveList[i] = createCurve(globalData[i]);
+  }
+  curveMove(curveList[i]);
 },500);
 
 // globalData.forEach(d=>{createCurve(d);});
@@ -85,8 +86,12 @@ function createCurve(data) {
   const geometry = new THREE.BufferGeometry().setFromPoints( points );
   const material = new THREE.LineBasicMaterial( { color : 0xe778e7} );
   const curveObject = new THREE.Line( geometry, material );
+  curveObject.userData.info = data;
+  curveObject.userData.v0 = v0;
+  curveObject.userData.v3 = v3;
   scene.add(curveObject);
-  curveMove(geometry);
+  return curveObject;
+  
 }
 
 
@@ -95,15 +100,27 @@ const updateGeometry = (geometry,startVal,endVal)=>{
 	geometry.attributes.position.needsUpdate = true;
 };
 
-function curveMove (geometry){
+const infoBoxEle =  document.getElementById("info-box");
+function curveMove (curve){
 	const startPoint = {val:0};
 	const endPoint = {val:0};
-	
+  const geometry = curve.geometry;
+  const infoBoxItemEle = document.createElement("div");
+  infoBoxItemEle.classList.add("info-box-item");
+  infoBoxItemEle.innerText = `${curve.userData.info.uml} ---> ${curve.userData.info.uol}`;
+
+	const startPlane = getPositionNamePlane(curve.userData.info.uml,curve.userData.v0);
+  const endPlane = getPositionNamePlane(curve.userData.info.uol,curve.userData.v3);
 	new TWEEN.Tween(endPoint)
 		.to({val:100},1000 * 3)
 		.onUpdate(()=>{
 			updateGeometry(geometry,startPoint.val,endPoint.val);
 		})
+    .onStart(()=>{
+      startPlane.visible = true;
+      endPlane.visible = true;
+      infoBoxEle.insertBefore(infoBoxItemEle,infoBoxEle.firstChild);
+    })
 		.start();
 	
 		setTimeout(() => {
@@ -112,8 +129,49 @@ function curveMove (geometry){
 				.onUpdate(()=>{
 					updateGeometry(geometry,startPoint.val,endPoint.val);
 				})
+        .onComplete(()=>{
+          startPlane.visible = false;
+          endPlane.visible = false;
+          infoBoxItemEle.remove();
+        })
 			.start();
 		}, 1000 * 4);
+}
+
+const positionNameMap = new Map();
+function getPositionNamePlane(name,positionVec3){
+  const id = `${name}-${positionVec3.x}-${positionVec3.y}-${positionVec3.z}`;
+  const oldPlane = positionNameMap.get(id);
+  if(oldPlane){
+    return oldPlane;
+  }
+
+  const ctx = document.createElement("canvas").getContext("2d");
+  ctx.canvas.style.position="absolute";
+  ctx.canvas.style.top =  "10px";
+  ctx.canvas.style.left =  "10px";
+
+  ctx.font = "16px";
+  const measure = ctx.measureText(name);
+  ctx.canvas.width = measure.width;
+  ctx.canvas.height = 32;
+  ctx.fillStyle = "#fff";
+  ctx.fillText(name,0,16);
+  
+  // document.body.appendChild(ctx.canvas);
+  const texture = new THREE.CanvasTexture(ctx.canvas);
+  const pGeometry = new THREE.PlaneGeometry( measure.width/6, 3);
+  const pMaterial = new THREE.MeshBasicMaterial( {
+    map:texture,
+    transparent: true,
+    opacity:0.9,
+    depthTest:false
+  } );
+  const plane = new THREE.Mesh( pGeometry, pMaterial );
+  plane.position.copy(positionVec3);
+  scene.add( plane );
+  positionNameMap.set(id,plane);
+  return plane;
 }
 
 
@@ -130,35 +188,15 @@ function convertLatLngToSphereCoords (latitude, longitude) {
   return new THREE.Vector3(x, y, z);
 }
 
-function convertLatLngToFlatCoords (latitude, longitude) {
-  // Reference: https://stackoverflow.com/questions/7019101/convert-pixel-location-to-latitude-longitude-vise-versa
-  const x = Math.round((longitude + 180) * (globeWidth / 360)) * 2;
-  const y = Math.round((-1 * latitude + 90) * (globeHeight / 180)) * 2;
-  console.log("convertLatLngToFlatCoords:", latitude, longitude, x, y);
-  return { x, y };
-}
-
-function convertFlatCoordsToSphereCoords (x, y){
-  // Calculate the relative 3d coordinates using Mercator projection relative to the radius of the globe.
-  // Convert latitude and longitude on the 90/180 degree axis.
-  let latitude = ((x - globeWidth) / globeWidth) * -180;
-  let longitude = ((y - globeHeight) / globeHeight) * -90;
-  latitude = (latitude * Math.PI) / 180; // (latitude / 180) * Math.PI
-  longitude = (longitude * Math.PI) / 180; // (longitude / 180) * Math.PI // Calculate the projected starting point
-  const radius = Math.cos(longitude) * globeRadius;
-  const targetX = Math.cos(latitude) * radius;
-  const targetY = Math.sin(longitude) * globeRadius;
-  const targetZ = Math.sin(latitude) * radius;
-  return {
-    x: targetX,
-    y: targetY,
-    z: targetZ
-  };
-}
-
 const animate = function () {
 	requestAnimationFrame( animate );
   TWEEN.update();
+  // 让面板对接摄像头
+  positionNameMap.forEach(plane=>{
+    if(plane.visible){
+      plane.lookAt(camera.position);
+    }
+  });
 	renderer.render( scene, camera );
 };
 animate();
