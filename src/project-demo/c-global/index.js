@@ -42,23 +42,25 @@ imgEle.onload = function () {
   });
   const sphere = new THREE.Mesh(geometry, material);
   scene.add(sphere);
+
+  let i = 0;
+  const curveList = [];
+  setInterval(()=>{
+    i += 1;
+    if(i>= globalData.length){
+      i = 0;
+    }
+    if(!curveList[i]){
+      curveList[i] = createCurve(globalData[i]);
+    }
+    curveMove(curveList[i]);
+  },500);
 };
 
 // 地图来源： http://www.shadedrelief.com/natural3/index.html
-imgEle.src = "/static/img/global.webp";
+imgEle.src = "./static/img/global.webp";
 
-let i = 0;
-const curveList = [];
-setInterval(()=>{
-  i += 1;
-  if(i>= globalData.length){
-    i = 0;
-  }
-  if(!curveList[i]){
-    curveList[i] = createCurve(globalData[i]);
-  }
-  curveMove(curveList[i]);
-},500);
+
 
 // globalData.forEach(d=>{createCurve(d);});
 
