@@ -26,12 +26,3 @@ npm run build
 - 此项目只放简单案例，完整案例是放到用TS写的[iot-visualization-examples](https://github.com/alwxkxk/iot-visualization-examples)
 ## 目录结构说明
 webpack处理时会将每个目录下的index.html使用该目录下的的index.js，即使在index.html里没有显式地使用。
-### LFS（准备弃用）
-`static/lfs/`用于使用git lfs 存放大文件。`.gitattributes`暂时已经配置了该目录下所有`*.glb`都使用lfs。这些文件部署到github pages时需要手动修改路径才能正常使用：
-比如：
-```js
-const url = window.location.host.includes("github.io") ?"https://media.githubusercontent.com/media/alwxkxk/threejs-example/master/static/lfs/car.glb":"./static/lfs/car.glb"
-```
-
-## TODO
-- 首页优化
