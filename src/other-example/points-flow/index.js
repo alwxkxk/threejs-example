@@ -30,7 +30,7 @@ for(let i = 0;i<300;i++){
   move.push(Math.random() * 0.1 - 0.05);
 }
 const geometry = new THREE.BufferGeometry();
-geometry.addAttribute( "position", new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
+geometry.setAttribute( "position", new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
 const pointsMaterial = new THREE.PointsMaterial( { size: 0.2, color: 0xffffff } );
 const points = new THREE.Points( geometry, pointsMaterial );
 scene.add(points);
@@ -43,7 +43,7 @@ const animate = function () {
     positions[index] += move[index];
     if(positions[index]>50){
       positions[index] = -50;
-    }else if(positions[index]>50){
+    }else if(positions[index]<-50){
       positions[index] = 50;
     }
   });
