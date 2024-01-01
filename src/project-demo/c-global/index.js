@@ -5,6 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import globalData from "./global-data";
 import TWEEN from "@tweenjs/tween.js";
 // TODO: 曲线进出时的水波效果
+// TODO: 光线效果
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );

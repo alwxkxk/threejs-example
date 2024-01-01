@@ -24,7 +24,6 @@ scene.add(directionalLight);
 const directionalLightHelper = new THREE.DirectionalLightHelper( directionalLight, 5 );
 scene.add(directionalLightHelper);
 
-// TODO:添加更多的物体
 const geometry = new THREE.TorusKnotGeometry( 10, 3, 200, 32 );
 const mat = new THREE.MeshStandardMaterial();
 const torusKnot = new THREE.Mesh( geometry,mat );
@@ -39,9 +38,9 @@ scene.add( box );
 const camera2 = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 100000 );
 camera2.position.z=15;
 scene.add(camera2);
-const camera2Helper = new THREE.CameraHelper( camera2 );
-camera2Helper.update();
-scene.add( camera2Helper );
+// const camera2Helper = new THREE.CameraHelper( camera2 );
+// camera2Helper.update();
+// scene.add( camera2Helper );
 
 
 // spot light 参数可调整。
@@ -53,6 +52,7 @@ const spotLightParams = {
   penumbra: 1,
   decay: 1
 };
+
 
 const spotLight = new THREE.SpotLight( 
   spotLightParams.color,
@@ -74,8 +74,9 @@ const animate = function () {
   if(cameraNum === 1){
     renderer.render( scene, camera );
   }else{
-    camera2Helper.update();
+    // camera2Helper.update();
 
+    // 灯光始终与摄像头2同步位置
     spotLight.position.copy(camera2.position);
     spotLightHelper.update();
 

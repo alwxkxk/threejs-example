@@ -1,6 +1,6 @@
 # threejs-example
 这是3D可视化教程源码，其教程文字内容在[作者博客中](https://www.scaugreen.cn/posts/30679)，教程还在制作当中。
-three.js(R119)，最新的three.js目录有较大变化，当前代码暂时还没更进。
+three.js(R119)，注意最新的three.js有较大变化，有空的时候会同步版本。
 ## 大陆访问
 - 大陆访问网址：[http://3d.scaugreen.cn](http://3d.scaugreen.cn/)
 
