@@ -4,6 +4,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import globalData from "./global-data";
 import TWEEN from "@tweenjs/tween.js";
+const debugFlag = false; // 调试标志位，会额外显示canvas图片
+
 // TODO: 曲线进出时的水波效果
 // TODO: 光线效果
 
@@ -141,6 +143,9 @@ function curveMove (curve){
 		}, 1000 * 4);
 }
 
+
+let ratio = 2; // 使用两倍像素来解决 文字不清晰的问题
+// 位置名卡片
 const positionNameMap = new Map();
 function getPositionNamePlane(name,positionVec3){
   const id = `${name}-${positionVec3.x}-${positionVec3.y}-${positionVec3.z}`;
@@ -148,20 +153,30 @@ function getPositionNamePlane(name,positionVec3){
   if(oldPlane){
     return oldPlane;
   }
-
-  const ctx = document.createElement("canvas").getContext("2d");
-  ctx.canvas.style.position="absolute";
-  ctx.canvas.style.top =  "10px";
-  ctx.canvas.style.left =  "10px";
-
-  ctx.font = "16px";
+  const canvasEle = document.createElement("canvas");
+  const ctx = canvasEle.getContext("2d");
+  const fontSize = 32;
+  ctx.font = `bold ${fontSize}px serif`;
   const measure = ctx.measureText(name);
-  ctx.canvas.width = measure.width;
-  ctx.canvas.height = 32;
-  ctx.fillStyle = "#fff";
-  ctx.fillText(name,0,16);
-  
-  // document.body.appendChild(ctx.canvas);
+  canvas.style.width = measure.width + "px";
+  canvas.style.height = fontSize + "px";
+        
+  ctx.canvas.width = ratio * measure.width;
+  ctx.canvas.height = ratio * fontSize;
+  ctx.scale(ratio, ratio);
+  // ctx.fillStyle = "#fff";
+
+  const gradient=ctx.createLinearGradient(0,0,1,-1);
+  gradient.addColorStop("0","#4facfe");
+  gradient.addColorStop("1.0","#00f2fe");
+  ctx.fillStyle=gradient;
+
+  ctx.fillText(name,fontSize/2,fontSize/2);
+
+  if(debugFlag){
+    infoBoxEle.insertBefore(canvasEle,infoBoxEle.firstChild);
+  }
+
   const texture = new THREE.CanvasTexture(ctx.canvas);
   const pGeometry = new THREE.PlaneGeometry( measure.width/6, 3);
   const pMaterial = new THREE.MeshBasicMaterial( {
@@ -194,7 +209,7 @@ function convertLatLngToSphereCoords (latitude, longitude) {
 const animate = function () {
 	requestAnimationFrame( animate );
   TWEEN.update();
-  // 让面板对接摄像头
+  // 让面板对着摄像头
   positionNameMap.forEach(plane=>{
     if(plane.visible){
       plane.lookAt(camera.position);
