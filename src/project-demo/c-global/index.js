@@ -4,10 +4,15 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import globalData from "./global-data";
 import TWEEN from "@tweenjs/tween.js";
+
+// bloom
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+
 const debugFlag = false; // 调试标志位，会额外显示canvas图片
 
 // TODO: 曲线进出时的水波效果
-// TODO: 光线效果
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -20,6 +25,16 @@ window.camera= camera;
 new OrbitControls( camera, renderer.domElement );
 // const light = new THREE.HemisphereLight( 0xffffff, 0xcccccc, 1 );
 // scene.add( light );
+
+// bloom效果
+const renderScene = new RenderPass( scene, camera );
+const bloomPass  = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+bloomPass .threshold = 0.1;
+bloomPass .strength = 1.5;
+bloomPass .radius = 0.2;
+const bloomComposer = new EffectComposer( renderer );
+bloomComposer.addPass( renderScene );
+bloomComposer.addPass( bloomPass  );
 
 const globeRadius = 50;
 
@@ -67,7 +82,8 @@ imgEle.src = "./static/img/global.webp";
 
 // globalData.forEach(d=>{createCurve(d);});
 
-
+const colorList = [0xF875AA,0xFFCF81,0x5FBDFF,0x7B66FF];
+let colorIndex = 0;
 function createCurve(data) {
   const v0 = convertLatLngToSphereCoords(data.gm.lat,data.gm.lon);
   const v1 = new THREE.Vector3();
@@ -89,7 +105,12 @@ function createCurve(data) {
   const curve = new THREE.CubicBezierCurve3(v0,v1,v2,v3);
   const points = curve.getPoints( 100 );
   const geometry = new THREE.BufferGeometry().setFromPoints( points );
-  const material = new THREE.LineBasicMaterial( { color : 0xe778e7} );
+  const material = new THREE.LineBasicMaterial( { color : colorList[colorIndex]} );
+  if(colorIndex >= colorList.length){
+    colorIndex = 0;
+  }else{
+    colorIndex += 1;
+  }
   const curveObject = new THREE.Line( geometry, material );
   curveObject.userData.info = data;
   curveObject.userData.v0 = v0;
@@ -143,9 +164,10 @@ function curveMove (curve){
 		}, 1000 * 4);
 }
 
-
-let ratio = 2; // 使用两倍像素来解决 文字不清晰的问题
 // 位置名卡片
+// 使用measure 还是不准确 ，可尝试参考：《动态文本绘制到指定尺寸Canvas，字体大小自适应》
+// https://juejin.cn/post/7117897010400722980
+let ratio = 2; // 使用两倍像素来解决 文字不清晰的问题
 const positionNameMap = new Map();
 function getPositionNamePlane(name,positionVec3){
   const id = `${name}-${positionVec3.x}-${positionVec3.y}-${positionVec3.z}`;
@@ -155,30 +177,39 @@ function getPositionNamePlane(name,positionVec3){
   }
   const canvasEle = document.createElement("canvas");
   const ctx = canvasEle.getContext("2d");
-  const fontSize = 32;
-  ctx.font = `bold ${fontSize}px serif`;
+  const fontSize = 16;
+  ctx.font = `bold ${fontSize}px Menlo`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
   const measure = ctx.measureText(name);
-  canvas.style.width = measure.width + "px";
+  const canvasWidth = measure.width;
+  console.log("measure",name,measure.width,canvasWidth,measure);
+  canvas.style.width = canvasWidth + "px";
   canvas.style.height = fontSize + "px";
         
-  ctx.canvas.width = ratio * measure.width;
+  ctx.canvas.width = ratio * canvasWidth;
   ctx.canvas.height = ratio * fontSize;
   ctx.scale(ratio, ratio);
-  // ctx.fillStyle = "#fff";
 
-  const gradient=ctx.createLinearGradient(0,0,1,-1);
+  if(debugFlag){
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+  }
+
+  const gradient=ctx.createLinearGradient(0,0,50,-50);
   gradient.addColorStop("0","#4facfe");
   gradient.addColorStop("1.0","#00f2fe");
   ctx.fillStyle=gradient;
 
-  ctx.fillText(name,fontSize/2,fontSize/2);
+  ctx.fillText(name,4,measure.hangingBaseline);
 
   if(debugFlag){
     infoBoxEle.insertBefore(canvasEle,infoBoxEle.firstChild);
   }
 
   const texture = new THREE.CanvasTexture(ctx.canvas);
-  const pGeometry = new THREE.PlaneGeometry( measure.width/6, 3);
+  const pGeometry = new THREE.PlaneGeometry( canvasWidth/6, 3);
   const pMaterial = new THREE.MeshBasicMaterial( {
     map:texture,
     transparent: true,
@@ -215,6 +246,7 @@ const animate = function () {
       plane.lookAt(camera.position);
     }
   });
-	renderer.render( scene, camera );
+	// renderer.render( scene, camera );
+  bloomComposer.render();
 };
 animate();
